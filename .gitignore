@@ -157,3 +157,4 @@ cython_debug/
 # VENV Files
 bin/
 pyvenv.cfg
+_scratch.py
