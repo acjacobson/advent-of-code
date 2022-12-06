@@ -38,24 +38,21 @@ def parseMoves(filename, start, end):
 		moves.append(parse[i])
 	return moves
 
-
-def sortCargo(start, end):
-	try:
-		shipment[end - 1].insert(0, shipment[start - 1][0])
-		del shipment[start - 1][0]
-	except:
-		return ("Error with stacking")
-
+def sortCargo(count, start, end):
+	stack = shipment[start-1][:count]
+	stack.reverse()
+	for i in stack:
+		shipment[end - 1].insert(0, i)
+	del shipment[start-1][:count]
+	
 shipment = parseStacks("input.txt", 0, 8)
 moves = parseMoves("input.txt", 10, 512)
 
 for item in moves:
-	i = 0 
+	count = int(item[0])
 	start = int(item[1])
 	end = int(item[2])
-	while i < int(item[0]):
-		sortCargo(start, end)
-		i += 1
+	sortCargo(count, start, end)
 
 top = ''
 for item in shipment:
@@ -65,6 +62,7 @@ for item in shipment:
 		continue
 
 print(top)
+
 
 
 
